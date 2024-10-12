@@ -262,3 +262,37 @@ footer nav ul {
   justify-content: flex-end;
   margin: 2em;
 }
+.filtersButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 38px;
+  margin-top: 50px;
+}
+.filtersButtons > button {
+  border-radius: 60px;
+  border: 1px solid;
+  height: 100%;
+  padding: 10px 10px;
+  color: #1d6154;
+  font-weight: 700;
+  font-family: "Syne";
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.filtersButtons > button:nth-child(1),
+button:nth-child(2) {
+  width: 100px;
+}
+.filtersButtons > button:hover {
+  background: #1d6154;
+  color: white;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
+.gallery {
+  margin-top: 60px;
+}

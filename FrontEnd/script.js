@@ -28,7 +28,7 @@ console.log(categories);
 
 //une fois les données de l'API récupérées, on va vouloir afficher ces données sur la page
 
-const btnContainer = document.querySelector(".buttons");
+const btnContainer = document.querySelector(".filtersButtons");
 function getCategoriesDisplay() {
   const btnTous = document.createElement("button");
   btnTous.innerText = "Tous";
@@ -60,7 +60,6 @@ button1.addEventListener("click", () => {
   });
   worksContainer.innerHTML = "";
   getWorksDisplay(WorksObjects);
-  console.log(WorksObjects);
 });
 
 button2.addEventListener("click", () => {
@@ -70,7 +69,6 @@ button2.addEventListener("click", () => {
   });
   worksContainer.innerHTML = "";
   getWorksDisplay(WorksApparts);
-  console.log(WorksApparts);
 });
 
 button3.addEventListener("click", () => {
@@ -80,7 +78,6 @@ button3.addEventListener("click", () => {
   });
   worksContainer.innerHTML = "";
   getWorksDisplay(WorksHotels);
-  console.log(WorksHotels);
 });
 
 // works.map((work) => {
