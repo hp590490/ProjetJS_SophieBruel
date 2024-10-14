@@ -133,6 +133,7 @@ body {
   margin: auto;
   font-family: "Work Sans";
   font-size: 14px;
+  background: #fffef8;
 }
 header {
   display: flex;
@@ -173,131 +174,94 @@ nav li {
   padding: 0 10px;
   font-size: 1.2em;
 }
-
+ul li:nth-child(3) {
+  font-weight: 600;
+}
 li:hover {
   color: #b1663c;
   cursor: pointer;
 }
-#introduction {
+
+.loginForm {
   display: flex;
   align-items: center;
-}
-#introduction figure {
-  flex: 1;
-}
-#introduction img {
-  display: block;
-  margin: auto;
-  width: 80%;
-}
-
-#introduction article {
-  flex: 1;
-}
-#introduction h2 {
-  margin-bottom: 1em;
-}
-
-#introduction p {
-  margin-bottom: 0.5em;
-}
-#portfolio h2 {
-  text-align: center;
-  margin-bottom: 1em;
-}
-.gallery {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
-}
-
-.gallery img {
-  width: 100%;
-}
-#contact {
-  width: 50%;
-  margin: auto;
-}
-#contact > * {
-  text-align: center;
-}
-#contact h2 {
-  margin-bottom: 20px;
-}
-#contact form {
-  text-align: left;
-  margin-top: 30px;
-  display: flex;
+  justify-content: center;
   flex-direction: column;
+  padding: 60px 45px 30px;
+}
+.loginForm h2 {
+  text-align: center;
+  margin-bottom: 15px;
 }
 
-#contact input {
-  height: 50px;
-  font-size: 1.2em;
-  border: none;
-  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-}
-#contact label {
-  margin: 2em 0 1em 0;
-}
-#contact textarea {
-  border: none;
-  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+input[type="text"],
+input[type="password"] {
+  margin: 7px 0 7px;
+  border: 0;
+  height: 51px;
+  width: 100%;
+  box-shadow: 0px 4px 14px 0px #00000017;
+  font-size: 1.1rem;
+  padding-left: 10px;
+  transition: 0.2s;
+  text-align: center;
 }
 
 input[type="submit"] {
-  font-family: "Syne";
-  font-weight: 700;
-  color: white;
-  background-color: #1d6154;
-  margin: 2em auto;
-  width: 180px;
-  text-align: center;
-  border-radius: 60px;
-}
-
-footer nav ul {
-  display: flex;
-  justify-content: flex-end;
-  margin: 2em;
-}
-.filtersButtons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  height: 38px;
-  margin-top: 50px;
-}
-.filtersButtons > button {
-  border-radius: 60px;
-  border: 1px solid;
-  height: 100%;
-  padding: 10px 10px;
-  color: #1d6154;
-  font-weight: 700;
-  font-family: "Syne";
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.filtersButtons > button:nth-child(1),
-button:nth-child(2) {
-  width: 100px;
-}
-.filtersButtons > button:hover {
+  border: none;
   background: #1d6154;
   color: white;
-  transition: 0.3s ease-in-out;
+  width: 55%;
+  margin: 12px auto 0;
+  padding: 10px;
+  border-radius: 60px;
+  font-size: 14px;
   cursor: pointer;
+  transition: 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Syne";
+  margin-top: 30px;
 }
-.gallery {
-  margin-top: 60px;
+input[type="submit"]:hover {
+  transform: translateX(2px);
 }
-a {
-  text-decoration: none;
-  color: black;
+.loginForm a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #3d3d3d;
+  font-weight: 500;
+  font-size: 14px;
+  margin-top: 20px;
+}
+.loginForm label {
+  font-weight: 500;
+}
+
+.emailcontainer {
+  margin-top: 25px;
+  width: 329px;
+}
+.passwordcontainer {
+  width: 329px;
+  margin-top: 25px;
+}
+footer ul {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+footer li {
+  font-weight: 300;
+  font-size: 14px;
+  position: absolute;
+  transform: translateY(220px);
+}
+
+.error span {
+  visibility: visible;
+  opacity: 1;
+  color: red;
 }
