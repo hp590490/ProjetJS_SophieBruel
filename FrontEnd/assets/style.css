@@ -297,3 +297,7 @@ button:nth-child(2) {
 .gallery {
   margin-top: 60px;
 }
+a {
+  text-decoration: none;
+  color: black;
+}
