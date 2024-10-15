@@ -90,7 +90,7 @@ form.addEventListener("submit", (e) => {
         idError.style.marginBottom = "20px";
       } else {
         sessionStorage.setItem("authToken", responseData.token);
-        window.location.href = "../FrontEnd/index.html";
+        window.location.href = "../FrontEnd/adminPage/index.html";
       }
       return responseData;
     }
