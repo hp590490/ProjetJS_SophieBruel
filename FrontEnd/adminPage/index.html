@@ -63,21 +63,64 @@
           <h2>Mes Projets</h2>
           <div class="edit">
             <div class="modal-container">
-              <div class="modal-overlay"></div>
-              <div class="modal-content">
-                <button class="close-modal">
+              <div class="modal-overlay modal-trigger"></div>
+              <div
+                class="modal-content"
+                role="dialog"
+                aria-labelledby="modalTitle"
+                aria-describedby="dialogDesc"
+              >
+                <button
+                  class="close-modal modal-trigger"
+                  aria-label="close modal"
+                >
                   <i class="fa-solid fa-xmark" style="color: #000000"></i>
+                  <button class="back-modal modal2">
+                    <i
+                      class="fa-solid fa-arrow-left"
+                      style="color: #000000"
+                    ></i>
+                  </button>
                 </button>
-                <h3>Galerie photo</h3>
-                <div class="centerModal">
-                  <div class="worksModal"></div>
+                <h3 id="modalTitle" class="modal1">Galerie photo</h3>
+                <h3 class="modal2 modal2title">Ajout photo</h3>
+                <div class="centerModal modal1">
+                  <div class="worksModal modal1" id="dialogDesc"></div>
                 </div>
-                <div class="centeraddphoto">
-                  <button class="addphotomodal">Ajouter une photo</button>
+                <div class="file-upload modal2">
+                  <label for="file-input">
+                    <div class="file-upload-wrapper">
+                      <i class="fa-regular fa-image"></i>
+                      <span>+ Ajouter photo</span>
+                    </div>
+                  </label>
+                  <input
+                    id="file-input"
+                    type="file"
+                    accept="image/jpeg, image/png"
+                  />
+                  <p>jpg, png : 4mo max</p>
+                </div>
+                <div class="inputs modal2">
+                  <label for="titre">Titre</label><br />
+                  <input type="text" id="titre" name="titre" /><br />
+                  <label for="categorie">Catégorie</label><br />
+                  <select name="categories" id="categoriemodal2">
+                    <option value="" id="optionnulle"></option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="centeraddphoto modal1">
+                  <button class="addphotomodal modal1">
+                    Ajouter une photo
+                  </button>
+                </div>
+                <div class="centeraddphoto2 modal2">
+                  <button class="btn-valider modal2">Valider</button>
                 </div>
               </div>
             </div>
-            <button class="modal-btn">
+            <button class="modal-btn modal-trigger">
               <i class="fa-solid fa-pen-to-square"></i>
               modifier
             </button>
