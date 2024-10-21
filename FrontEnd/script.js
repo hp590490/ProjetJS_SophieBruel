@@ -10,8 +10,10 @@ function getWorksDisplay(works) {
   for (let i = 0; i < works.length; i++) {
     const work = works[i];
     const articleWorks = document.createElement("article");
+
     const imageWorks = document.createElement("img");
     imageWorks.src = work.imageUrl;
+    imageWorks.style.height = "100%";
     const titleWorks = document.createElement("h4");
     titleWorks.innerText = work.title;
 
@@ -43,64 +45,29 @@ function getCategoriesDisplay() {
 
 getCategoriesDisplay();
 
-let button0 = document.querySelector("button:nth-child(1)");
-let button1 = document.querySelector("button:nth-child(2)");
-let button2 = document.querySelector("button:nth-child(3)");
-let button3 = document.querySelector("button:nth-child(4)");
-
-button0.addEventListener("click", () => {
-  worksContainer.innerHTML = "";
-  return getWorksDisplay(works);
-});
-
-button1.addEventListener("click", () => {
-  let idCategorie = categories[0].id;
-  const WorksObjects = works.filter(function (work) {
-    return work.category.id === idCategorie;
+//fonction tri boutons
+function filtersDisplay() {
+  const buttons = document.querySelectorAll(".filtersButtons button");
+  buttons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+      //à chaque clic, les boutons redeviennt normaux et le style est appliqué après sur le bouton cliqué
+      buttons.forEach((btn) => {
+        btn.style.background = "";
+        btn.style.color = "";
+      });
+      worksContainer.innerHTML = "";
+      button.style.background = "#1d6154";
+      button.style.color = "white";
+      if (index === 0) {
+        getWorksDisplay(works);
+      } else {
+        const idCategorie = categories[index - 1].id; // -1 car le premier bouton n'est pas lié à une catégorie
+        const filterWorks = works.filter(
+          (work) => work.category.id === idCategorie
+        );
+        getWorksDisplay(filterWorks);
+      }
+    });
   });
-  worksContainer.innerHTML = "";
-  getWorksDisplay(WorksObjects);
-});
-
-button2.addEventListener("click", () => {
-  let idCategorie2 = categories[1].id;
-  const WorksApparts = works.filter(function (work) {
-    return work.category.id === idCategorie2;
-  });
-  worksContainer.innerHTML = "";
-  getWorksDisplay(WorksApparts);
-});
-
-button3.addEventListener("click", () => {
-  let idCategorie3 = categories[2].id;
-  const WorksHotels = works.filter(function (work) {
-    return work.category.id === idCategorie3;
-  });
-  worksContainer.innerHTML = "";
-  getWorksDisplay(WorksHotels);
-});
-
-// works.map((work) => {
-//   const articleWorks = document.createElement("article");
-//   const imageWorks = document.createElement("img");
-//   imageWorks.src = work.imageUrl;
-//   const titleWorks = document.createElement("h4");
-//   titleWorks.innerText = work.title;
-//   worksContainer.appendChild(articleWorks);
-//   articleWorks.appendChild(imageWorks);
-//   articleWorks.appendChild(titleWorks);
-// });
-
-// async function getWorksData() {
-//   const url = "http://localhost:5678/api/works";
-//   try {
-//     const response = await fetch(url);
-//     if (!response.ok) {
-//       throw new Error(`Response status: ${response.status}`);
-//     }
-//     const works = await response.json();
-//     console.log(works);
-//   } catch (error) {
-//     console.error(error.message);
-//   }
-// }
+}
+filtersDisplay();
