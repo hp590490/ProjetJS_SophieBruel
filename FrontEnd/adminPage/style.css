@@ -164,7 +164,11 @@ header {
 .section {
   margin: 50px 0;
 }
-
+#instagramlogo {
+  height: 19px;
+  width: 19px;
+  padding-top: 3px;
+}
 h1 {
   display: flex;
   flex-direction: column;
@@ -308,7 +312,7 @@ li:hover {
 }
 .modal-content h3 {
   text-align: center;
-  margin: 30px 0px 50px 0px;
+  margin: 10px 0px 50px 0px;
   font-weight: 500;
   font-size: 26px;
 }
@@ -331,7 +335,10 @@ li:hover {
   padding-bottom: 25px;
   position: relative;
 }
-article i {
+article img {
+  width: 100%;
+}
+.fa-trash-can {
   position: absolute;
   top: -10px;
   right: -10px;
@@ -359,7 +366,7 @@ article i {
   cursor: auto;
 }
 .addphotomodal {
-  margin-top: 60px;
+  margin-top: 70px;
   border-radius: 60px;
   border: 1px solid;
   color: #fff;
@@ -393,11 +400,16 @@ article i {
   font-weight: 500;
   font-size: 26px;
 }
+.formmodal2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .file-upload {
   text-align: center;
   background: #e8f1f6;
   border-radius: 3px;
-  padding: 10px 0px 10px 0px;
   padding-top: 0;
   max-width: 420px;
   width: 100%;
@@ -438,6 +450,14 @@ article i {
   color: #444444;
   font-weight: 400;
   margin: -10px 0px 10px 0px;
+}
+#image-preview {
+  max-width: 100%;
+  height: 169px;
+  object-fit: contain; /* Garde les proportions de l'image */
+  margin-bottom: 10px;
+  border-radius: 8px;
+  margin: 0 auto;
 }
 .inputs {
   margin-top: 25px;
@@ -491,7 +511,7 @@ article i {
   width: 100%;
   max-width: 420px;
 }
-.btn-valider:before {
+.btnvalider:before {
   content: "";
   height: 1px;
   position: absolute;
@@ -500,7 +520,7 @@ article i {
   cursor: auto;
   width: 100%;
 }
-.btn-valider {
+.btnvalider {
   margin-top: 60px;
   border-radius: 60px;
   border: 1px solid;
@@ -510,11 +530,13 @@ article i {
   font-size: 14px;
   background: #a7a7a7;
   padding: 10px 100px 10px 100px;
-  cursor: pointer;
   margin: 0 auto;
   margin-top: 70px;
 }
-
+.btnvalider.enabled {
+  background: #1d6154;
+  cursor: pointer;
+}
 .gallery {
   width: 100%;
   display: grid;
@@ -558,7 +580,7 @@ article i {
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"] {
+#submitcontact {
   font-family: "Syne";
   font-weight: 700;
   color: white;

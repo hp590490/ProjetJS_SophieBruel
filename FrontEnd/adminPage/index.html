@@ -27,10 +27,12 @@
       <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
       <nav>
         <ul>
-          <li>projets</li>
-          <a href="#contact"><li>contact</li></a>
-          <a href="../loginPage/index.html"><li>logout</li></a>
-          <li><img src="../assets/icons/instagram.png" /></li>
+          <li><a href="#portfolio">projets</a></li>
+          <li><a href="#contact">contact</a></li>
+          <li><a href="../index.html">logout</a></li>
+          <li>
+            <img src="../assets/icons/instagram.png" id="instagramlogo" />
+          </li>
         </ul>
       </nav>
     </header>
@@ -84,40 +86,52 @@
                 </button>
                 <h3 id="modalTitle" class="modal1">Galerie photo</h3>
                 <h3 class="modal2 modal2title">Ajout photo</h3>
+                <span id="errormessage"></span>
                 <div class="centerModal modal1">
                   <div class="worksModal modal1" id="dialogDesc"></div>
-                </div>
-                <div class="file-upload modal2">
-                  <label for="file-input">
-                    <div class="file-upload-wrapper">
-                      <i class="fa-regular fa-image"></i>
-                      <span>+ Ajouter photo</span>
-                    </div>
-                  </label>
-                  <input
-                    id="file-input"
-                    type="file"
-                    accept="image/jpeg, image/png"
-                  />
-                  <p>jpg, png : 4mo max</p>
-                </div>
-                <div class="inputs modal2">
-                  <label for="titre">Titre</label><br />
-                  <input type="text" id="titre" name="titre" /><br />
-                  <label for="categorie">Catégorie</label><br />
-                  <select name="categories" id="categoriemodal2">
-                    <option value="" id="optionnulle"></option>
-                  </select>
-                  <i class="fa-solid fa-chevron-down"></i>
                 </div>
                 <div class="centeraddphoto modal1">
                   <button class="addphotomodal modal1">
                     Ajouter une photo
                   </button>
                 </div>
-                <div class="centeraddphoto2 modal2">
-                  <button class="btn-valider modal2">Valider</button>
-                </div>
+                <form action="" class="formmodal2 modal2">
+                  <div class="file-upload modal2">
+                    <label for="fileinputimg" id="labelfile">
+                      <div class="file-upload-wrapper">
+                        <i class="fa-regular fa-image" id="iconephoto"></i>
+                        <span>+ Ajouter photo</span>
+                      </div>
+                    </label>
+                    <img
+                      id="image-preview"
+                      src="#"
+                      alt="Prévisualisation"
+                      style="display: none; max-width: 100%"
+                    />
+                    <input
+                      id="fileinputimg"
+                      type="file"
+                      accept="image/jpeg, image/png"
+                      name="image"
+                    />
+                    <p id="textfile">jpg, png : 4mo max</p>
+                  </div>
+                  <div class="inputs modal2">
+                    <label for="titre">Titre</label><br />
+                    <input type="text" id="titre" name="title" /><br />
+                    <label for="categorie">Catégorie</label><br />
+                    <select name="category" id="categoriemodal2">
+                      <option value="" id="optionnulle"></option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </div>
+                  <div class="centeraddphoto2 modal2">
+                    <button type="submit" class="btnvalider modal2">
+                      Valider
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
             <button class="modal-btn modal-trigger">
@@ -138,7 +152,7 @@
           <input type="email" name="email" id="email" />
           <label for="message">Message</label>
           <textarea name="message" id="message" cols="30" rows="10"></textarea>
-          <input type="submit" value="Envoyer" />
+          <input type="submit" id="submitcontact" value="Envoyer" />
         </form>
       </section>
     </main>
