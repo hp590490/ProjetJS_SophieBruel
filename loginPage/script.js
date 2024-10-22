@@ -97,7 +97,7 @@ form.addEventListener("submit", (e) => {
     // Appel de la fonction
     (async () => {
       const data = await loginUser(userData);
-      console.log(data); // Utiliser les données en dehors de la fonction si besoin
+      console.log(data);
     })();
   } else {
     e.preventDefault();

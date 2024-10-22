@@ -48,7 +48,7 @@ modalWorksDisplay(works);
 //
 async function deletWorks() {
   modalWorksContainer.addEventListener("click", async (e) => {
-    // Vérifie si l'élément cliqué est une icône de suppression
+    // on vérifie si l'élément cliqué est une icône de suppression
     if (e.target.classList.contains("fa-trash-can")) {
       const deletWork = e.target.closest("article");
       const Id = deletWork.getAttribute("data-id");
@@ -72,9 +72,8 @@ async function deletWorks() {
         if (response.ok) {
           console.log(`L'élément avec l'ID ${Id} a été supprimé avec succès.`);
           // Supprime l'élément du DOM
-
           const fileInput = document.getElementById("fileinputimg");
-          fileInput.value = ""; // Réinitialise l'input afin de pouvoir recharger la même image qui était supprimée
+          fileInput.value = ""; // réinitialise l'input afin de pouvoir recharger la même image qui était supprimée
           refreshWorks();
           const galleryWork = worksContainer.querySelector(
             `article[data-id="${Id}"]`
@@ -112,7 +111,6 @@ modalTriggers.forEach((trigger) =>
 );
 function toggleModal() {
   modalContainer.classList.toggle("active");
-  console.log(works);
 }
 
 addPhotoModal.addEventListener("click", () => {
@@ -169,7 +167,7 @@ document
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      // Quand le fichier est chargé
+      // quand le fichier est chargé
       reader.onload = function (e) {
         const imagePreview = document.getElementById("image-preview");
         imagePreview.src = e.target.result;
@@ -180,17 +178,17 @@ document
         textfile.style.marginTop = "10px";
       };
 
-      // Lit le fichier comme une URL de données
+      // lit le fichier comme une URL de données
       reader.readAsDataURL(file);
     }
   });
-// Réinitialiser l'input lorsque l'image est cliquée
+// réinitialiser l'input lorsque l'image est cliquée
 document.getElementById("image-preview").addEventListener("click", function () {
   const fileInput = document.getElementById("fileinputimg");
-  fileInput.value = ""; // Réinitialise l'input
-  this.style.display = "none"; // Masque la prévisualisation si nécessaire, évite répétition d'image
-  labelfile.style.display = "block"; // Réaffiche le label
-  textfile.innerText = "jpg, png : 4mo max"; // Réaffiche le texte
+  fileInput.value = ""; // réinitialise l'input
+  this.style.display = "none"; // masque la prévisualisation si nécessaire, évite répétition d'image
+  labelfile.style.display = "block"; // réaffiche le label
+  textfile.innerText = "jpg, png : 4mo max"; // réaffiche le texte
 });
 //
 //inputs modale2
@@ -229,27 +227,8 @@ inputsModal2.forEach((input) => {
   input.addEventListener("change", checkInputsSaisie);
 });
 
-//fonction pour vérifier les champs des inputs
-
-//losqu'il y a submit, on récupère l'image, le titre et la categorie et on l'ajoute à la base de données avec la méthode POST
+//lorsqu'il y a submit, on récupère l'image, le titre et la categorie et on l'ajoute à la base de données avec la méthode POST
 const formmodal2 = document.querySelector(".formmodal2");
-
-async function refreshWorks() {
-  try {
-    const responseWorks = await fetch("http://localhost:5678/api/works");
-    let works = await responseWorks.json();
-
-    // Vider les conteneurs de la galerie et de la modale avant de les remplir à nouveau
-    worksContainer.innerHTML = "";
-    modalWorksContainer.innerHTML = "";
-
-    // Afficher à nouveau les travaux
-    getWorksDisplay(works);
-    modalWorksDisplay(works);
-  } catch (error) {
-    console.error("Erreur lors de la récupération des travaux:", error);
-  }
-}
 
 function addPhotoModal2() {
   formmodal2.addEventListener("submit", async (e) => {
@@ -279,7 +258,6 @@ function addPhotoModal2() {
       });
 
       if (!response.ok) {
-        // Gestion des erreurs HTTP spécifiques
         if ([400, 404].includes(response.status)) {
           alert("Impossible d'ajouter le nouveau projet!");
         } else {
@@ -287,15 +265,10 @@ function addPhotoModal2() {
         }
         return;
       }
-
-      // Récupérer la réponse JSON
       const data = await response.json();
+      refreshWorks([data]);
 
-      // Mise à jour de la galerie et de la modale avec le nouvel élément
-      getWorksDisplay([data]); // Ajouter uniquement le nouveau projet à la galerie
-      modalWorksDisplay([data]); // Ajouter le nouveau projet à la modale
-
-      // Réinitialiser la modale
+      // réinitialiser la modale
       resetModal();
       modalContainer.classList.remove("active");
 
@@ -307,9 +280,20 @@ function addPhotoModal2() {
 }
 addPhotoModal2();
 
-// setInterval(async () => {
-//   const responseWorks = await fetch("http://localhost:5678/api/works");
-//   let works = await responseWorks.json();
-//   worksContainer.innerHTML = ""; // Effacer l'ancienne galerie
-//   getWorksDisplay(works); // Réafficher les travaux
-// }, 1000);
+//fonction de rafraichissement des works sur la page, fonction appelée lors de ma fonction de suppression afin d'avoir une suppression dynamique et lors de l'ajout d'une nouvelle photo
+async function refreshWorks() {
+  try {
+    const responseWorks = await fetch("http://localhost:5678/api/works");
+    let works = await responseWorks.json();
+
+    // vider les conteneurs de la galerie et de la modale avant de les remplir à nouveau
+    worksContainer.innerHTML = "";
+    modalWorksContainer.innerHTML = "";
+
+    // afficher à nouveau les travaux
+    getWorksDisplay(works);
+    modalWorksDisplay(works);
+  } catch (error) {
+    console.error("Erreur lors de la récupération des travaux:", error);
+  }
+}
