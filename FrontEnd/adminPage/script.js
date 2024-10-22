@@ -47,13 +47,18 @@ modalWorksDisplay(works);
 //supprimer un élément losqu'on clique sur l'icone trash
 //
 async function deletWorks() {
-  const deleteIcons = document.querySelectorAll(".fa-trash-can");
-  deleteIcons.forEach((delet) => {
-    delet.addEventListener("click", async () => {
-      const deletWork = delet.closest("article");
+  modalWorksContainer.addEventListener("click", async (e) => {
+    // Vérifie si l'élément cliqué est une icône de suppression
+    if (e.target.classList.contains("fa-trash-can")) {
+      const deletWork = e.target.closest("article");
       const Id = deletWork.getAttribute("data-id");
-      deletWork.remove();
-      // on va delete le work dans la base de donnée avec la méthode "DELETE"
+
+      if (!Id) {
+        console.error("Impossible de trouver l'ID de l'élément à supprimer.");
+        return;
+      }
+
+      // Supprimer également l'élément de la base de données
       const token = sessionStorage.getItem("authToken");
       try {
         const response = await fetch(`http://localhost:5678/api/works/${Id}`, {
@@ -63,17 +68,29 @@ async function deletWorks() {
             Authorization: `Bearer ${token}`,
           },
         });
+
         if (response.ok) {
           console.log(`L'élément avec l'ID ${Id} a été supprimé avec succès.`);
+          // Supprime l'élément du DOM
+
+          const fileInput = document.getElementById("fileinputimg");
+          fileInput.value = ""; // Réinitialise l'input afin de pouvoir recharger la même image qui était supprimée
+          refreshWorks();
+          const galleryWork = worksContainer.querySelector(
+            `article[data-id="${Id}"]`
+          );
+          if (galleryWork) {
+            galleryWork.remove();
+          }
         } else {
           console.error(
-            "Erreur lors de la suppression de l'élément dans la base de données."
+            `Erreur lors de la suppression de l'élément avec l'ID ${Id} dans la base de données.`
           );
         }
       } catch (error) {
         console.error("Erreur réseau ou autre lors de la suppression :", error);
       }
-    });
+    }
   });
 }
 
@@ -159,7 +176,7 @@ document
         imagePreview.style.display = "block";
         labelfile.style.display = "none";
         textfile.innerText =
-          "Cliquer sur l'image chargée pour pouvoir en charger une autre";
+          "Cliquer sur l'image chargée pour pouvoir la remplacer par une autre";
         textfile.style.marginTop = "10px";
       };
 
@@ -217,6 +234,23 @@ inputsModal2.forEach((input) => {
 //losqu'il y a submit, on récupère l'image, le titre et la categorie et on l'ajoute à la base de données avec la méthode POST
 const formmodal2 = document.querySelector(".formmodal2");
 
+async function refreshWorks() {
+  try {
+    const responseWorks = await fetch("http://localhost:5678/api/works");
+    let works = await responseWorks.json();
+
+    // Vider les conteneurs de la galerie et de la modale avant de les remplir à nouveau
+    worksContainer.innerHTML = "";
+    modalWorksContainer.innerHTML = "";
+
+    // Afficher à nouveau les travaux
+    getWorksDisplay(works);
+    modalWorksDisplay(works);
+  } catch (error) {
+    console.error("Erreur lors de la récupération des travaux:", error);
+  }
+}
+
 function addPhotoModal2() {
   formmodal2.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -235,57 +269,47 @@ function addPhotoModal2() {
     categoriesModal2.value = "";
     formData.append("category", categoryId);
     //fermer la modale suite au submit
-    await fetch("http://localhost:5678/api/works", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token} `,
-      },
-      body: formData,
-    })
-      .then(function (response) {
-        if (response.ok) {
-          return response.json(); // Traitez la réponse en cas de succès
-        } else {
-          switch (response.status) {
-            case 500:
-            case 503:
-              alert("Merci de bien remplir le formulaire d'ajout de photo");
-              break;
-            case 400:
-            case 404:
-              alert("Impossible d'ajouter le nouveau projet!");
-              return response.text().then((errorText) => {
-                console.error("Erreur:", errorText);
-                throw new Error(`Erreur ${response.status}: ${errorText}`);
-              });
-              break;
-            default:
-              alert("Erreur inconnue!");
-              break;
-          }
-        }
-      })
-      .then(function (data) {
-        if (data) {
-          //ajouter le projet à la gallerie
-          console.log("Projet ajouté avec succès!", data);
-          getWorksDisplay([data]);
-          modalWorksDisplay([data]);
-          resetModal();
-          modalContainer.classList.remove("active");
-          deletWorks();
-        }
-      })
-      .catch(function (error) {
-        console.error("Erreur lors de l'envoi:", error);
+    try {
+      const response = await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
       });
+
+      if (!response.ok) {
+        // Gestion des erreurs HTTP spécifiques
+        if ([400, 404].includes(response.status)) {
+          alert("Impossible d'ajouter le nouveau projet!");
+        } else {
+          alert("Erreur lors de l'ajout du projet!");
+        }
+        return;
+      }
+
+      // Récupérer la réponse JSON
+      const data = await response.json();
+
+      // Mise à jour de la galerie et de la modale avec le nouvel élément
+      getWorksDisplay([data]); // Ajouter uniquement le nouveau projet à la galerie
+      modalWorksDisplay([data]); // Ajouter le nouveau projet à la modale
+
+      // Réinitialiser la modale
+      resetModal();
+      modalContainer.classList.remove("active");
+
+      console.log("Projet ajouté avec succès!", data);
+    } catch (error) {
+      console.error("Erreur lors de l'envoi:", error);
+    }
   });
 }
 addPhotoModal2();
 
-setInterval(async () => {
-  const responseWorks = await fetch("http://localhost:5678/api/works");
-  let works = await responseWorks.json();
-  worksContainer.innerHTML = ""; // Effacer l'ancienne galerie
-  getWorksDisplay(works); // Réafficher les travaux
-}, 1000);
+// setInterval(async () => {
+//   const responseWorks = await fetch("http://localhost:5678/api/works");
+//   let works = await responseWorks.json();
+//   worksContainer.innerHTML = ""; // Effacer l'ancienne galerie
+//   getWorksDisplay(works); // Réafficher les travaux
+// }, 1000);
