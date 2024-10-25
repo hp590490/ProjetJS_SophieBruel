@@ -71,7 +71,6 @@ async function deletWorks() {
 
         if (response.ok) {
           console.log(`L'élément avec l'ID ${Id} a été supprimé avec succès.`);
-          // Supprime l'élément du DOM
           const fileInput = document.getElementById("fileinputimg");
           fileInput.value = ""; // réinitialise l'input afin de pouvoir recharger la même image qui était supprimée
           refreshWorks();

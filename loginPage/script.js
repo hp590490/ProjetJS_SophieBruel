@@ -80,14 +80,12 @@ form.addEventListener("submit", (e) => {
         e.preventDefault();
         const idError = document.querySelector(".iderror");
         idError.innerHTML = `<p>Utilisateur inconnu, veuillez vérifier votre e-mail et/ou votre mot de passe.</p>`;
-        idError.style.color = "red";
-        idError.style.marginBottom = "20px";
+        idError.classList.add("errorstyle");
       } else if (responseData.error) {
         e.preventDefault();
         const idError = document.querySelector(".iderror");
         idError.innerHTML = `<p>Utilisateur inconnu, veuillez vérifier votre e-mail et/ou votre mot de passe.</p>`;
-        idError.style.color = "red";
-        idError.style.marginBottom = "20px";
+        idError.classList.add("errorstyle");
       } else {
         sessionStorage.setItem("authToken", responseData.token);
         window.location.href = "../FrontEnd/adminPage/index.html";

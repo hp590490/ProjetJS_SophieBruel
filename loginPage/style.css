@@ -265,3 +265,7 @@ footer li {
   opacity: 1;
   color: red;
 }
+.errorstyle {
+  color: red;
+  margin-bottom: 20px;
+}
